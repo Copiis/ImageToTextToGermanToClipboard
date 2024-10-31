@@ -1,41 +1,48 @@
-# Image Text Reader and Translator to Clipboard (Google Translate)
+# Image Text Reader and Translator
 
-## Description
-This userscript allows you to extract text from images on any webpage by clicking on the image. The extracted text is translated into German and copied to the clipboard for easy access. It uses Tesseract.js for Optical Character Recognition (OCR) and Google Translate for translation.
+This Tampermonkey userscript allows users to extract text from images on a webpage by right-clicking the image. The extracted text is then translated into English and copied to the clipboard for easy use.
 
 ## Features
-- Click on any image to read and translate the text.
-- Automatically cleans the extracted text for better accuracy.
-- Copies the translated text directly to your clipboard.
-- Easy integration with Tampermonkey for enhanced web browsing experience.
+
+- **Right-click to extract text**: Simply right-click on any image to initiate the text extraction process.
+- **Text recognition**: Utilizes Tesseract.js for Optical Character Recognition (OCR) to accurately read text from images.
+- **Translation**: Automatically translates the recognized text into English using Google Translate.
+- **Clipboard functionality**: Copies the translated text to your clipboard for quick access.
 
 ## Installation
-1. Install [Tampermonkey](https://www.tampermonkey.net/) if you haven't already.
-2. Click on the Tampermonkey icon in your browser and select "Create a new script."
-3. Replace the default script with the content of this script.
-4. Save the script.
+
+1. **Install Tampermonkey**: Make sure you have the Tampermonkey extension installed in your browser.
+   
+   - [Chrome Web Store](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmipfmgdfohlll?hl=en)
+   - [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)
+   - [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/tampermonkey/dhdgffkkebhmipfmgdfohlll?hl=en)
+
+2. **Create a new script**: Open the Tampermonkey dashboard and click on "Create a new script".
+
+3. **Paste the code**: Copy the code from the script provided in this repository and paste it into the Tampermonkey script editor.
+
+4. **Save the script**: Click on the "File" menu and then "Save".
 
 ## Usage
-- Navigate to any webpage with images.
-- Click on an image containing text.
-- Wait for the script to recognize the text, translate it to German, and copy it to your clipboard.
-- A confirmation alert will display the translated text.
 
-## Requirements
-- Tampermonkey installed in your browser.
-- Internet access for Tesseract.js and Google Translate.
+- Navigate to a webpage containing images.
+- Right-click on any image to extract and translate the text from it.
+- An alert will notify you once the translated text is copied to your clipboard.
 
 ## Dependencies
-- [Tesseract.js](https://github.com/naptha/tesseract.js): JavaScript library for OCR.
-- Google Translate for translation services.
 
-## Notes
-- The script assumes the original text in the image is in English.
-- If no text is recognized or if the translation fails, an alert will inform you of the issue.
-- Ensure that the images clicked contain clear and readable text for better results.
-
-## Author
-- **Copiis**
+- **Tesseract.js**: This script relies on Tesseract.js for optical character recognition.
+- **GM_xmlhttpRequest**: Used for making cross-origin requests to Google Translate.
 
 ## License
-This script is released under the MIT License. Feel free to use and modify it as needed.
+
+This project is licensed under the MIT License. Feel free to modify and use the script as per your needs.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you have suggestions or improvements.
+
+## Acknowledgments
+
+- [Tesseract.js](https://github.com/naptha/tesseract.js) for providing the OCR functionality.
+- [Google Translate](https://translate.google.com/) for translation services.
