@@ -2,7 +2,7 @@
 // @name         Image Text Reader and Translator to Clipboard (Google Translate)
 // @namespace    http://tampermonkey.net/
 // @version      0.9
-// @description  Liest Text aus Bildern nach Klick, übersetzt ihn ins Deutsche und kopiert ihn in die Zwischenablage
+// @description  Reads text from images on right-click, translates it to English, and copies it to the clipboard
 // @author       Copiis
 // @match        *://*/*
 // @require      https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js
@@ -13,49 +13,49 @@
 (function() {
     'use strict';
 
-    // Funktion, um den Text von unerwünschten Zeichen zu bereinigen
+    // Function to clean text from unwanted characters
     function cleanText(text) {
-        return text.replace(/[^\x20-\x7E]/g, ' ').trim(); // Nur druckbare ASCII-Zeichen behalten
+        return text.replace(/[^\x20-\x7E]/g, ' ').trim(); // Keep only printable ASCII characters
     }
 
-    // Funktion, um Text aus einem Bild zu extrahieren, zu übersetzen und zu kopieren
-    async function readAndTranslateTextOnClick(imgElement) {
+    // Function to extract text from an image, translate it, and copy it
+    async function readAndTranslateTextOnRightClick(imgElement) {
         try {
-            // Texterkennung starten
-            const { data: { text } } = await Tesseract.recognize(imgElement.src, 'eng'); // Annahme: Originaltext in Englisch
-            console.log("Erkannter Text:", text);
+            // Start text recognition
+            const { data: { text } } = await Tesseract.recognize(imgElement.src, 'eng'); // Assume original text is in English
+            console.log("Recognized text:", text);
 
             if (!text) {
-                alert("Kein Text erkannt. Bitte versuche es mit einem anderen Bild.");
+                alert("No text recognized. Please try another image.");
                 return;
             }
 
-            // Text bereinigen
+            // Clean the text
             const cleanedText = cleanText(text);
             if (!cleanedText) {
-                alert("Der erkannte Text enthält keine gültigen Zeichen.");
+                alert("The recognized text contains no valid characters.");
                 return;
             }
 
-            // Text ins Deutsche übersetzen
-            const translatedText = await translateText(cleanedText);  // Ziel: Deutsch
-            console.log("Übersetzter Text:", translatedText);
+            // Translate text to English
+            const translatedText = await translateText(cleanedText);  // Target: English
+            console.log("Translated text:", translatedText);
 
-            // Übersetzten Text in die Zwischenablage kopieren
+            // Copy the translated text to the clipboard
             navigator.clipboard.writeText(translatedText).then(() => {
-                alert("Übersetzter Text wurde in die Zwischenablage kopiert: " + translatedText);
+                alert("Translated text has been copied to the clipboard: " + translatedText);
             }).catch(err => {
-                console.error("Fehler beim Kopieren in die Zwischenablage:", err);
+                console.error("Error copying to clipboard:", err);
             });
         } catch (error) {
-            console.error("Fehler bei Texterkennung oder Übersetzung:", error);
-            alert("Es ist ein Fehler aufgetreten. Bitte überprüfe die Konsole für Details.");
+            console.error("Error in text recognition or translation:", error);
+            alert("An error occurred. Please check the console for details.");
         }
     }
 
-    // Funktion, um den Text über den Google Übersetzer zu übersetzen
+    // Function to translate text using Google Translate
     async function translateText(text) {
-        const url = `https://translate.google.com/m?hl=de&sl=en&tl=de&ie=UTF-8&prev=_m&q=${encodeURIComponent(text)}`;
+        const url = `https://translate.google.com/m?hl=en&sl=en&tl=en&ie=UTF-8&prev=_m&q=${encodeURIComponent(text)}`;
 
         return new Promise((resolve, reject) => {
             GM_xmlhttpRequest({
@@ -65,26 +65,29 @@
                     if (response.status === 200) {
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(response.responseText, "text/html");
-                        const translationElement = doc.querySelector(".result-container"); // CSS-Klasse des übersetzten Textes
+                        const translationElement = doc.querySelector(".result-container"); // CSS class of the translated text
 
                         if (translationElement) {
                             resolve(translationElement.innerText);
                         } else {
-                            reject("Übersetzung nicht gefunden.");
+                            reject("Translation not found.");
                         }
                     } else {
-                        reject("Fehler beim Zugriff auf die Google Übersetzer-Seite.");
+                        reject("Error accessing the Google Translate page.");
                     }
                 },
                 onerror: function() {
-                    reject("Netzwerkfehler beim Zugriff auf die Google Übersetzer-Seite.");
+                    reject("Network error accessing the Google Translate page.");
                 }
             });
         });
     }
 
-    // Füge Klick-Event nur einmalig für jedes Bild hinzu
+    // Add context menu event only once for each image
     document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('click', () => readAndTranslateTextOnClick(img));  // Klick auf Bild startet Texterkennung und Übersetzung
+        img.addEventListener('contextmenu', (event) => {
+            event.preventDefault(); // Prevent the default context menu
+            readAndTranslateTextOnRightClick(img);  // Right-click on image starts text recognition and translation
+        });
     });
 })();
