@@ -1,56 +1,41 @@
 # Image Text Reader and Translator to Clipboard (Google Translate)
 
-## Beschreibung
+## Description
+This userscript allows you to extract text from images on any webpage by clicking on the image. The extracted text is translated into German and copied to the clipboard for easy access. It uses Tesseract.js for Optical Character Recognition (OCR) and Google Translate for translation.
 
-Dieses Tampermonkey-Skript liest Text aus Bildern, übersetzt ihn ins Deutsche und kopiert ihn in die Zwischenablage. Es nutzt die Tesseract.js-Bibliothek für die Texterkennung und Google Translate für die Übersetzung.
-
-## Funktionen
-
-- **Texterkennung**: Erkennt Text aus Bildern durch Klicken.
-- **Übersetzung**: Übersetzt den erkannten Text ins Deutsche.
-- **Zwischenablage**: Kopiert den übersetzten Text direkt in die Zwischenablage.
+## Features
+- Click on any image to read and translate the text.
+- Automatically cleans the extracted text for better accuracy.
+- Copies the translated text directly to your clipboard.
+- Easy integration with Tampermonkey for enhanced web browsing experience.
 
 ## Installation
+1. Install [Tampermonkey](https://www.tampermonkey.net/) if you haven't already.
+2. Click on the Tampermonkey icon in your browser and select "Create a new script."
+3. Replace the default script with the content of this script.
+4. Save the script.
 
-1. Installiere [Tampermonkey](https://www.tampermonkey.net/) in deinem Browser.
-2. Klicke auf das Tampermonkey-Symbol und wähle "Neues Skript hinzufügen".
-3. Ersetze den Standardinhalt mit dem Skript aus diesem Repository.
-4. Speichere das Skript.
+## Usage
+- Navigate to any webpage with images.
+- Click on an image containing text.
+- Wait for the script to recognize the text, translate it to German, and copy it to your clipboard.
+- A confirmation alert will display the translated text.
 
-## Verwendung
+## Requirements
+- Tampermonkey installed in your browser.
+- Internet access for Tesseract.js and Google Translate.
 
-1. Besuche eine Webseite mit Bildern.
-2. Klicke auf ein Bild, um den darin enthaltenen Text zu erkennen.
-3. Der erkannte Text wird ins Deutsche übersetzt und in die Zwischenablage kopiert.
-4. Du kannst den übersetzten Text überall einfügen.
+## Dependencies
+- [Tesseract.js](https://github.com/naptha/tesseract.js): JavaScript library for OCR.
+- Google Translate for translation services.
 
-## Voraussetzungen
+## Notes
+- The script assumes the original text in the image is in English.
+- If no text is recognized or if the translation fails, an alert will inform you of the issue.
+- Ensure that the images clicked contain clear and readable text for better results.
 
-- Ein modernes Webbrowser, der Tampermonkey unterstützt.
-- Internetverbindung für die Nutzung von Google Translate.
+## Author
+- **Copiis**
 
-## Kompatibilität
-
-Das Skript funktioniert auf jeder Webseite, die Bilder enthält, und ist mit den meisten gängigen Browsern kompatibel.
-
-## Hinweise
-
-- Stelle sicher, dass du die neueste Version von Tesseract.js in deinem Skript verwendest.
-- Achte auf mögliche Einschränkungen bei der Verwendung von Google Translate.
-
-## Änderungen
-
-- **Version 0.9**: Erstveröffentlichung.
-
-## Lizenz
-
-Dieses Skript ist unter der [MIT-Lizenz](LICENSE) lizenziert.
-
-## Mitwirkende
-
-- [Copiis](https://github.com/Copiis) - Hauptentwickler
-
-## Kontakt
-
-Für Fragen oder Anregungen kontaktiere mich bitte über GitHub oder per E-Mail.
-
+## License
+This script is released under the MIT License. Feel free to use and modify it as needed.
